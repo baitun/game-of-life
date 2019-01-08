@@ -53,7 +53,7 @@ class Game {
         this.grid.randomize();
     }
 
-    handlePlayButtonClick(event) {
+    handlePlayButtonClick() {
         if (this.isPlaying) {
             this.pause();
         } else {
@@ -62,11 +62,11 @@ class Game {
         }
     }
 
-    handleResetButtonClick(event) {
+    handleResetButtonClick() {
         this.reset();
     }
 
-    handleRandomizeButtonClick(event) {
+    handleRandomizeButtonClick() {
         this.randomize();
     }
 
