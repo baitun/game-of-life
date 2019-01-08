@@ -20,7 +20,6 @@ td {
     height: 20px;
     background-color: transparent;
     cursor: pointer;
-    transition: background-color .1s;
 }
 
 td:last-child {
