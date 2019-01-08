@@ -28,7 +28,7 @@ class Cell {
         this.element.addEventListener('click', this.handleClick.bind(this));
     }
 
-    handleClick(event) {
+    handleClick() {
         this.alive = !this.alive;
     }
 }

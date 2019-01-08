@@ -1,19 +1,15 @@
 class Grid {
     constructor({ element, size }) {
         this.element = element;
-        this.table = null;
         this.size = size;
-        this.cells = null;
-        this.buffer = null;
+        this.table = document.createElement('table');
+        this.cells = new Array(this.size);
+        this.buffer = new Array(this.size);
 
         this.init();
     }
 
     init() {
-        this.table = document.createElement('table');
-        this.cells = new Array(this.size);
-        this.buffer = new Array(this.size);
-
         for (let r = 0; r < this.size; r++) {
             let row = document.createElement('tr');
             this.cells[r] = new Array(this.size);
@@ -26,9 +22,10 @@ class Grid {
                     col: c
                 });
 
-                row.appendChild(cell.element);
                 this.cells[r][c] = cell;
                 this.buffer[r][c] = false;
+                
+                row.appendChild(cell.element);
             }
 
             this.table.appendChild(row);
