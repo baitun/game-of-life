@@ -1,8 +1,8 @@
 const GRID_WIDTH = 1200,
   GRID_HEIGHT = 650,
   GRID_ROWS = 32,
-  GRID_COLS = 64,
-  GAME_SPEED = 1000;
+  GRID_COLS = 64;
+let gameSpeed = 1000;
 
 const grid = createGrid(GRID_ROWS, GRID_COLS);
 const nextGrid = createGrid(GRID_ROWS, GRID_COLS);
@@ -75,7 +75,8 @@ function createControls() {
     } else {
       isPlaing = true;
       this.textContent = "pause";
-      interval = setInterval(play, GAME_SPEED);
+      clearInterval(interval);
+      interval = setInterval(play, gameSpeed);
       play();
     }
   });
@@ -104,12 +105,16 @@ function createControls() {
 
   const speedSlider = document.createElement("input");
   speedSlider.type = "range";
-  speedSlider.min = 0;
-  speedSlider.max = 900;
+  speedSlider.min = 100;
+  speedSlider.max = 1000;
   speedSlider.step = 100;
+  speedSlider.value = gameSpeed;
   speedSlider.addEventListener("input", function() {
-    clearInterval(interval);
-    interval = setInterval(play, GAME_SPEED - this.value);
+    gameSpeed = this.value;
+    if (isPlaing) {
+      clearInterval(interval);
+      interval = setInterval(play, gameSpeed);
+    }
   });
 
   const container = document.createElement("div");
