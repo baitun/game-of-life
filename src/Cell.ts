@@ -1,47 +1,28 @@
 export default class Cell {
-  public width: number;
-  public height: number;
   public row: number;
   public col: number;
   private _alive: boolean;
   public element: HTMLTableDataCellElement | null = null;
-  constructor(
-    width: number,
-    height: number,
-    row: number,
-    col: number,
-    alive: boolean = false
-  ) {
-    this.width = width;
-    this.height = height;
-    if (this.width != this.height)
-      this.width = this.height = Math.min(this.width, this.height);
+  constructor(row: number, col: number, alive: boolean = false) {
     this.row = row;
     this.col = col;
     this._alive = alive;
-    this._init();
   }
 
-  public toggle(isAlive = !this._alive) {
+  get isAlive() {
+    return this._alive;
+  }
+
+  public toggleState(isAlive = !this._alive) {
     this._alive = isAlive;
     if (this.element) this.element.classList.toggle("alive", this._alive);
   }
 
-  get alive() {
-    return Number(this._alive);
+  public resetState() {
+    this._alive = false;
   }
 
-  private _init() {
-    const td = document.createElement("td");
-    td.className = "cell";
-    td.width = String(this.width);
-    td.height = String(this.height);
-
-    td.addEventListener("click", this._handleClick.bind(this));
-    this.element = td;
-  }
-
-  private _handleClick() {
-    this.toggle();
+  public randomState() {
+    this._alive = Math.random() > 0.5;
   }
 }

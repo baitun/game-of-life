@@ -36,7 +36,7 @@ export default class Grid {
       this._grid[i] = [];
       this._nextGrid[i] = [];
       for (let j = 0; j < this.gridCols; j++) {
-        const cell = new Cell(this.cellWidth, this.cellHeight, i, j);
+        const cell = new Cell(i, j);
         const td = cell.element;
         this._grid[i][j] = cell;
         this._nextGrid[i][j] = false;
@@ -67,25 +67,19 @@ export default class Grid {
     this._forEachCell((cell: Cell) => {
       const i = cell.row,
         j = cell.col;
-      cell.toggle(this._nextGrid[i][j]);
+      cell.toggleState(this._nextGrid[i][j]);
     });
   }
 
   public randomize() {
-    this._forEachCell((cell: Cell) => {
-      const isAlive = Math.random() > 0.5;
-      cell.toggle(isAlive);
-    });
+    this._forEachCell((cell: Cell) => cell.randomState());
   }
 
   public reset() {
-    this._forEachCell((cell: Cell) => {
-      cell.toggle(false);
-      this._nextGrid[cell.row][cell.col] = false;
-    });
+    this._forEachCell((cell: Cell) => cell.resetState());
   }
 
-  private _forEachCell(fn: Function) {
+  private _forEachCell(fn: (cell: Cell) => void) {
     for (let i = 0; i < this.gridRows; i++) {
       for (let j = 0; j < this.gridCols; j++) {
         const cell = this._grid[i][j];
@@ -98,34 +92,37 @@ export default class Grid {
     let count = 0;
     let i = cell.row,
       j = cell.col;
-    if (i - 1 >= 0) {
-      count += this._grid[i - 1][j].alive;
-      if (j - 1 >= 0) {
-        count += this._grid[i - 1][j - 1].alive;
-      }
-      if (j + 1 < this.gridCols) {
-        count += this._grid[i - 1][j + 1].alive;
-      }
-    }
-    if (j - 1 >= 0) {
-      count += this._grid[i][j - 1].alive;
-    }
-    if (i + 1 < this.gridRows) {
-      count += this._grid[i + 1][j].alive;
-      if (j - 1 >= 0) {
-        count += this._grid[i + 1][j - 1].alive;
-      }
-      if (j + 1 < this.gridCols) {
-        count += this._grid[i + 1][j + 1].alive;
-      }
-    }
-    if (j + 1 < this.gridRows) {
-      count += this._grid[i][j + 1].alive;
-    }
+    if (this._isCellAlive(i - 1, j)) count++;
+
+    // if (i - 1 >= 0) {
+    //   count += this._grid[i - 1][j].alive;
+    //   if (j - 1 >= 0) {
+    //     count += this._grid[i - 1][j - 1].alive;
+    //   }
+    //   if (j + 1 < this.gridCols) {
+    //     count += this._grid[i - 1][j + 1].alive;
+    //   }
+    // }
+    // if (j - 1 >= 0) {
+    //   count += this._grid[i][j - 1].alive;
+    // }
+    // if (i + 1 < this.gridRows) {
+    //   count += this._grid[i + 1][j].alive;
+    //   if (j - 1 >= 0) {
+    //     count += this._grid[i + 1][j - 1].alive;
+    //   }
+    //   if (j + 1 < this.gridCols) {
+    //     count += this._grid[i + 1][j + 1].alive;
+    //   }
+    // }
+    // if (j + 1 < this.gridRows) {
+    //   count += this._grid[i][j + 1].alive;
+    // }
     return count;
   }
 
   private _isCellAlive(row: number, col: number) {
-    return Boolean(this._grid[row][col].alive);
+    const cell = this._grid[row][col];
+    return cell.isAlive;
   }
 }
