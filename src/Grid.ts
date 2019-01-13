@@ -125,7 +125,7 @@ export default class Grid {
     return count;
   }
 
-  private _isNeighbourAlive(row: number, col: number) {
+  private _isCellAlive(row: number, col: number) {
     return Boolean(this._grid[row][col].alive);
   }
 }

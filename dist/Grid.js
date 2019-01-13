@@ -104,7 +104,7 @@ export default class Grid {
         }
         return count;
     }
-    _isNeighbourAlive(row, col) {
+    _isCellAlive(row, col) {
         return Boolean(this._grid[row][col].alive);
     }
 }
