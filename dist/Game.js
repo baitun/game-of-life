@@ -89,4 +89,3 @@ export default class Game {
         clearInterval(this.interval);
     }
 }
-//# sourceMappingURL=Game.js.map

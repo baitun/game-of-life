@@ -107,4 +107,3 @@ export default class Grid {
         return Boolean(this._grid[row][col].alive);
     }
 }
-//# sourceMappingURL=Grid.js.map

@@ -28,4 +28,3 @@ export default class Cell {
         this.toggle();
     }
 }
-//# sourceMappingURL=Cell.js.map

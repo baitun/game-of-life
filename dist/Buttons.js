@@ -35,4 +35,3 @@ class StartButton extends Button {
     }
 }
 export { Button, StartButton };
-//# sourceMappingURL=Buttons.js.map
