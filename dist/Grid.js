@@ -64,6 +64,7 @@ export default class Grid {
     reset() {
         this._forEachCell((cell) => {
             cell.toggle(false);
+            this._nextGrid[cell.row][cell.col] = false;
         });
     }
     _forEachCell(fn) {

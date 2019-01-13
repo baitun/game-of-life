@@ -66,8 +66,10 @@ export default class Game {
 
   public changeSpeed(value: number) {
     this.speed = 1000 - value;
-    this._stopInterval();
-    this._startInterval();
+    if (this.isPlaing) {
+      this._stopInterval();
+      this._startInterval();
+    }
   }
 
   private _createControls() {
@@ -112,10 +114,12 @@ export default class Game {
   }
 
   private _startInterval() {
+    this.isPlaing = true;
     this.interval = setInterval(this.next, this.speed);
   }
 
   private _stopInterval() {
+    this.isPlaing = false;
     clearInterval(this.interval);
   }
 }

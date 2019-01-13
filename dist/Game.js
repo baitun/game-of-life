@@ -47,8 +47,10 @@ export default class Game {
     }
     changeSpeed(value) {
         this.speed = 1000 - value;
-        this._stopInterval();
-        this._startInterval();
+        if (this.isPlaing) {
+            this._stopInterval();
+            this._startInterval();
+        }
     }
     _createControls() {
         const startButton = new StartButton(() => {
@@ -83,9 +85,11 @@ export default class Game {
         this.controlsElement = container;
     }
     _startInterval() {
+        this.isPlaing = true;
         this.interval = setInterval(this.next, this.speed);
     }
     _stopInterval() {
+        this.isPlaing = false;
         clearInterval(this.interval);
     }
 }

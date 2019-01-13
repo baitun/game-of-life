@@ -3,6 +3,8 @@ export default class Cell {
         this.element = null;
         this.width = width;
         this.height = height;
+        if (this.width != this.height)
+            this.width = this.height = Math.min(this.width, this.height);
         this.row = row;
         this.col = col;
         this._alive = alive;
